@@ -29,26 +29,38 @@ public class GetChannelList {
      * @return 新闻频道列表
      */
     public static ArrayList<Channel> getList(){
-        //从网络获取新闻频道列表
-        String text = new ShowApiRequest("http://route.showapi.com/109-34", "58465", "76fd044d1ae74ea0bff5c000500d594d")
-                .post();
-        ArrayList<Channel> arrayList = new ArrayList<>();
-        //解析json
-        try {
-//            Log.e("text",text);
-            JSONObject jsonObject = new JSONObject(text);
-            JSONObject body = jsonObject.getJSONObject("showapi_res_body");
-            JSONArray jsonArray = body.getJSONArray("channelList");
-//            Log.e("list_size", jsonArray.length()+"");
-            for(int i=0;i<jsonArray.length();++i){
-                String channelId = ((JSONObject)jsonArray.get(i)).getString("channelId");
-                String name = ((JSONObject)jsonArray.get(i)).getString("name");
-                arrayList.add(new Channel(channelId, name));
-//                Log.e("channel", channelId + " " + name);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return arrayList;
+//        //从网络获取新闻频道列表
+//        String text = new ShowApiRequest("http://route.showapi.com/109-34", "58465", "76fd044d1ae74ea0bff5c000500d594d")
+//                .post();
+//        ArrayList<Channel> arrayList = new ArrayList<>();
+//        //解析json
+//        try {
+////            Log.e("text",text);
+//            JSONObject jsonObject = new JSONObject(text);
+//            JSONObject body = jsonObject.getJSONObject("showapi_res_body");
+//            JSONArray jsonArray = body.getJSONArray("channelList");
+////            Log.e("list_size", jsonArray.length()+"");
+//            for(int i=0;i<jsonArray.length();++i){
+//                String channelId = ((JSONObject)jsonArray.get(i)).getString("channelId");
+//                String name = ((JSONObject)jsonArray.get(i)).getString("name");
+//                arrayList.add(new Channel(channelId, name));
+////                Log.e("channel", channelId + " " + name);
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return arrayList;
+        ArrayList<Channel> list = new ArrayList<>();
+        list.add(new Channel("top", "头条"));
+        list.add(new Channel("shehui", "社会"));
+        list.add(new Channel("guonei", "国内"));
+        list.add(new Channel("guoji", "国际"));
+        list.add(new Channel("yule", "娱乐"));
+        list.add(new Channel("tiyu", "体育"));
+        list.add(new Channel("junshi", "头军事条"));
+        list.add(new Channel("keji", "科技"));
+        list.add(new Channel("caijing", "财经"));
+        list.add(new Channel("shishang", "时尚"));
+        return list;
     }
 }
