@@ -25,6 +25,11 @@ public class GetNewsContentList {
     private static ArrayList<NewsContent> list;
     private GetNewsContentList(){}
 
+    /**
+     * 获取新闻内容列表
+     * @param channelName 频道名称
+     * @return 新闻内容列表
+     */
     public static ArrayList<NewsContent> getList(String channelName){
         String text = new ShowApiRequest("http://route.showapi.com/109-35", "58465", "76fd044d1ae74ea0bff5c000500d594d")
                 .addTextPara("channelId","")

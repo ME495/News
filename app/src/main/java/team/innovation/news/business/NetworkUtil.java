@@ -16,11 +16,16 @@ import java.net.URLConnection;
 /**
  * 作者：程坚
  * 时间：2018/3/7
- * 描述：
+ * 描述：业务类，网络工具
  */
 public class NetworkUtil {
     private NetworkUtil(){}
 
+    /**
+     * 获取图片
+     * @param url 图片链接
+     * @return 图片
+     */
     public static Bitmap getBitmap(String url) {
         try {
             Log.e("url", url);

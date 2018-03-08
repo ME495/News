@@ -6,7 +6,7 @@ package team.innovation.news.entity;
 /**
  * 作者：程坚
  * 时间：2018/3/7
- * 描述：实体类，新闻类型
+ * 描述：实体类，新闻频道
  */
 public class Channel {
     private String channelId, name;

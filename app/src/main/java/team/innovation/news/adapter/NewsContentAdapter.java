@@ -24,7 +24,7 @@ import team.innovation.news.entity.NewsContent;
 /**
  * 作者：程坚
  * 时间：2018/3/7
- * 描述：
+ * 描述：新闻内容适配器
  */
 public class NewsContentAdapter extends BaseAdapter {
     private Context context;
