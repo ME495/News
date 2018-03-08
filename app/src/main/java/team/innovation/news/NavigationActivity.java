@@ -2,6 +2,7 @@ package team.innovation.news;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class NavigationActivity extends Activity {
     private ListView listView;
     private ProgressBar progressBar;
     private ImageView next;
+    private TextView tvTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,9 @@ public class NavigationActivity extends Activity {
         bar = findViewById(R.id.bar);
         listView = findViewById(R.id.list_view);
         progressBar = findViewById(R.id.pb);
+        tvTitle = findViewById(R.id.tvTitle);
+        // 更改标题栏字体
+        tvTitle.setTypeface(Typeface.createFromAsset(getAssets(), "PERTILI.TTF"));
         next = findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
