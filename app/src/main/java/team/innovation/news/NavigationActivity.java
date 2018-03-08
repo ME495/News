@@ -62,7 +62,7 @@ public class NavigationActivity extends Activity {
 
         tvTitle = findViewById(R.id.tvTitle);
         // 更改标题栏字体
-        tvTitle.setTypeface(Typeface.createFromAsset(getAssets(), "PERTILI.TTF"));
+        tvTitle.setTypeface(Typeface.createFromAsset(getAssets(), "PERTIBD.TTF"));
 
         next = findViewById(R.id.next);
         //监听收藏夹按钮点击事件
