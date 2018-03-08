@@ -69,12 +69,15 @@ public class GetNewsContentList {
                 newsContent.setDesc(object.getString("desc"));
                 newsContent.setLink(object.getString("link"));
                 JSONArray imageurls = object.getJSONArray("imageurls");
+                //如果json中有图片则设置成新闻图片链接，否则设置成noImageUrl
                 if(imageurls.length() > 0) {
                     String url = ((JSONObject)imageurls.get(0)).getString("url");
                     newsContent.setImageUrl(url);
+                    //将图片设置成null，等显示时再加载
                     newsContent.setBitmap(null);
                 } else {
                     newsContent.setImageUrl(noImageUrl);
+                    //直接设置图片
                     newsContent.setBitmap(b);
                 }
                 list.add(newsContent);
