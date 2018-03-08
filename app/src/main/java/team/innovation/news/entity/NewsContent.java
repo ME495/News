@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 /**
  * 作者：程坚
  * 时间：2018/3/7
- * 描述：
+ * 描述：实体类，新闻内容
  */
 public class NewsContent {
     private String title, desc, link;

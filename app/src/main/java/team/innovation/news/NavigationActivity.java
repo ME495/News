@@ -17,6 +17,11 @@ import team.innovation.news.business.GetNewsContentList;
 import team.innovation.news.entity.Channel;
 import team.innovation.news.entity.NewsContent;
 
+/**
+ * 作者：程坚
+ * 时间：2018/3/7
+ * 描述：导航界面
+ */
 public class NavigationActivity extends AppCompatActivity {
     private LinearLayout bar;
     private ArrayList<TextView> textViews;
@@ -29,6 +34,10 @@ public class NavigationActivity extends AppCompatActivity {
         listView = findViewById(R.id.list_view);
         new LoadChanneBar().execute();
     }
+
+    /**
+     * 载入新闻内容
+     */
     private class LoadNewsContent extends AsyncTask<String, Void, ArrayList<NewsContent>>{
 
         @Override
@@ -45,6 +54,10 @@ public class NavigationActivity extends AppCompatActivity {
             listView.setAdapter(adapter);
         }
     }
+
+    /**
+     * 载入频道列表
+     */
     private class LoadChanneBar extends AsyncTask<Void, ArrayList<Channel>, ArrayList<Channel>>{
 
         @Override

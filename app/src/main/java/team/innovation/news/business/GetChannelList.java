@@ -19,12 +19,17 @@ import team.innovation.news.entity.Channel;
 /**
  * 作者：程坚
  * 时间：2018/3/7
- * 描述：获取新闻类型
+ * 描述：获取新闻频道列表
  */
 public class GetChannelList {
     private GetChannelList(){}
 
+    /**
+     * 获取新闻频道列表
+     * @return 新闻频道列表
+     */
     public static ArrayList<Channel> getList(){
+        //从网络获取新闻频道列表
         String text = new ShowApiRequest("http://route.showapi.com/109-34", "58465", "76fd044d1ae74ea0bff5c000500d594d")
                 .post();
         try {
