@@ -24,7 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StarActivity"></activity>
+        <activity
+            android:name=".StarActivity"
+            android:theme="@style/TitleBarStyle"></activity>
     </application>
 
 </manifest>
