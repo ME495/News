@@ -69,9 +69,7 @@ public class NewsContentAdapter extends BaseAdapter {
         }
         NewsContent newsContent = data.get(position);
         holder.title.setText(newsContent.getTitle());
-        if (newsContent.getBitmap() == null) {
-            new LoadImage().execute(holder);
-        }
+        new LoadImage().execute(holder);
 //        holder.image.setImageBitmap(newsContent.getBitmap());
         convertView.setTag(holder);
         return convertView;
@@ -83,14 +81,13 @@ public class NewsContentAdapter extends BaseAdapter {
         NewsContent newsContent;
     }
 
-
     private class LoadImage extends AsyncTask<ViewHolder, Void, ViewHolder> {
-
         @Override
         protected ViewHolder doInBackground(ViewHolder... viewHolders) {
-//            NewsContent newsContent = newsContents[0];
             ViewHolder holder = viewHolders[0];
-            holder.newsContent.setBitmap(NetworkUtil.getBitmap(holder.newsContent.getImageUrl()));
+            if (holder.newsContent.getBitmap() == null) {
+                holder.newsContent.setBitmap(NetworkUtil.getBitmap(holder.newsContent.getImageUrl()));
+            }
             return holder;
         }
 
