@@ -94,6 +94,7 @@ public class NavigationActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 NewsContent newsContent = GetNewsContentList.getItem(i);
+                Log.e("link",newsContent.getLink());
                 WebView webView = new WebView(getApplicationContext());
                 webView.loadUrl(newsContent.getLink());
             }
