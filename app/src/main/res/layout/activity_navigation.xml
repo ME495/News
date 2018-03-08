@@ -11,19 +11,16 @@
         <LinearLayout
             android:id="@+id/bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:layout_height="40dp"
+            android:orientation="horizontal">
 
         </LinearLayout>
     </HorizontalScrollView>
     <ProgressBar
         android:id="@+id/pb"
-        android:indeterminateTint="#a9c5c9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="?android:attr/progressBarStyle"
-        />
+        style="@style/CustomProgressStyle"/>
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"

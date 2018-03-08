@@ -34,4 +34,16 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+
+    <style name="TitleBarStyle" parent="@android:style/Theme.Light">
+        <item name="android:windowTitleSize">48dip</item>
+        <item name="android:windowTitleBackgroundStyle">@null</item>
+    </style>
+
+    <style name="CustomProgressStyle" parent="@android:style/Widget.ProgressBar.Large">
+        <item name="android:minWidth">23dip</item>
+        <item name="android:maxWidth">23dip</item>
+        <item name="android:minHeight">23dip</item>
+        <item name="android:maxHeight">23dip</item>
+    </style>
 </resources>

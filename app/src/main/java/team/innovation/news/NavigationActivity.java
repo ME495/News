@@ -1,12 +1,16 @@
 package team.innovation.news;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -25,18 +29,32 @@ import team.innovation.news.entity.NewsContent;
  * 时间：2018/3/7
  * 描述：导航界面
  */
-public class NavigationActivity extends AppCompatActivity {
+public class NavigationActivity extends Activity {
     private LinearLayout bar;
     private ArrayList<TextView> textViews;
     private ListView listView;
     private ProgressBar progressBar;
+    private ImageView next;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 自定义标题栏
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_navigation);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title);
+
         bar = findViewById(R.id.bar);
         listView = findViewById(R.id.list_view);
         progressBar = findViewById(R.id.pb);
+        next = findViewById(R.id.next);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), StarActivity.class);
+                startActivity(intent);
+            }
+        });
         new LoadChanneBar().execute();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -92,12 +110,13 @@ public class NavigationActivity extends AppCompatActivity {
                 textView.setTextSize(30);
                 textView.setPadding(30,0,30,0);
                 textView.setBackgroundColor(0xFFFFFFFF);
+                textView.setTextSize(23);
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 //                        TextView textView = (TextView) v;
                         resetTextViewColor();
-                        textView.setBackgroundColor(0xFF3F51B5);
+                        textView.setBackgroundColor(0xFFF44336);
                         textView.setTextColor(0xFFFFFFFF);
                         if(progressBar.getVisibility() == View.GONE){
                             progressBar.setVisibility(View.VISIBLE);
