@@ -12,6 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import team.innovation.news.entity.NewsContent;
@@ -58,6 +60,7 @@ public class GetNewsContentList {
             JSONArray jsonArray = pagebean.getJSONArray("contentlist");
 
             for(int i=0;i<jsonArray.length();++i){
+                Log.e("i",i+"");
                 JSONObject object = (JSONObject) jsonArray.get(i);
                 NewsContent newsContent = new NewsContent();
                 newsContent.setTitle(object.getString("title"));
