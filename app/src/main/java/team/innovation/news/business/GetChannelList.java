@@ -57,7 +57,7 @@ public class GetChannelList {
         list.add(new Channel("guoji", "国际"));
         list.add(new Channel("yule", "娱乐"));
         list.add(new Channel("tiyu", "体育"));
-        list.add(new Channel("junshi", "头军事条"));
+        list.add(new Channel("junshi", "军事"));
         list.add(new Channel("keji", "科技"));
         list.add(new Channel("caijing", "财经"));
         list.add(new Channel("shishang", "时尚"));

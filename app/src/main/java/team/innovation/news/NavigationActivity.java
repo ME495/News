@@ -80,16 +80,19 @@ public class NavigationActivity extends AppCompatActivity {
             super.onPostExecute(list);
             textViews = new ArrayList<>();
             for(int i=0;i<list.size();++i){
-                TextView textView = new TextView(NavigationActivity.this);
+                final TextView textView = new TextView(NavigationActivity.this);
                 textView.setText(list.get(i).getName());
                 textView.setTag(list.get(i).getChannelId());
                 textView.setTextSize(30);
                 textView.setPadding(30,0,30,0);
-                textView.setBackgroundColor(0xffff0000);
+                textView.setBackgroundColor(0xFFFFFFFF);
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 //                        TextView textView = (TextView) v;
+                        resetTextViewColor();
+                        textView.setBackgroundColor(0xFF3F51B5);
+                        textView.setTextColor(0xFFFFFFFF);
                         new LoadNewsContent().execute(v.getTag().toString());
                     }
                 });
@@ -97,6 +100,19 @@ public class NavigationActivity extends AppCompatActivity {
                 bar.addView(textView);
             }
             textViews.get(0).callOnClick();
+
+        }
+        /**
+         * 让bar中的TextView恢复默认颜色
+         * jq
+         * 18/03/08
+          */
+        protected void resetTextViewColor() {
+            for(int i = 0; i < bar.getChildCount(); i++) {
+                TextView textView = (TextView) bar.getChildAt(i);
+                    textView.setBackgroundColor(0xFFFFFFFF);
+                    textView.setTextColor(0x8A000000);
+            }
         }
     }
 }

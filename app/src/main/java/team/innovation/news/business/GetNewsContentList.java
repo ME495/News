@@ -45,7 +45,7 @@ public class GetNewsContentList {
 //                .addTextPara("id","")
 //                .post();
 
-        ArrayList<NewsContent> list = new ArrayList<>();
+        list = new ArrayList<>();
         try {
             String st = "http://v.juhe.cn/toutiao/index?type=" + channelId + "&key=2f9b39d413bc98688f9088fa3a7bf58c";
             Log.e("st",st);
