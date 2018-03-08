@@ -6,12 +6,18 @@ import android.os.Bundle;
 
 import team.innovation.news.business.MyDatabaseHelper;
 
+/**
+ * 作者：金琦
+ * 时间：2018/3/8
+ * 描述：启动页面
+ */
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        //初始化缓存
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(this, MyDatabaseHelper.FILENAME, null, 1);
         dbHelper.initLinkSet();
         new Thread(new Runnable() {

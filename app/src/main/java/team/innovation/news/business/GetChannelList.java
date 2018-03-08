@@ -32,12 +32,13 @@ public class GetChannelList {
         //从网络获取新闻频道列表
         String text = new ShowApiRequest("http://route.showapi.com/109-34", "58465", "76fd044d1ae74ea0bff5c000500d594d")
                 .post();
+        ArrayList<Channel> arrayList = new ArrayList<>();
+        //解析json
         try {
 //            Log.e("text",text);
             JSONObject jsonObject = new JSONObject(text);
             JSONObject body = jsonObject.getJSONObject("showapi_res_body");
             JSONArray jsonArray = body.getJSONArray("channelList");
-            ArrayList<Channel> arrayList = new ArrayList<>();
 //            Log.e("list_size", jsonArray.length()+"");
             for(int i=0;i<jsonArray.length();++i){
                 String channelId = ((JSONObject)jsonArray.get(i)).getString("channelId");
@@ -45,10 +46,9 @@ public class GetChannelList {
                 arrayList.add(new Channel(channelId, name));
 //                Log.e("channel", channelId + " " + name);
             }
-            return arrayList;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        return arrayList;
     }
 }

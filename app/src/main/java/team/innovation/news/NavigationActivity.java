@@ -31,12 +31,23 @@ import team.innovation.news.entity.NewsContent;
  * 描述：导航界面
  */
 public class NavigationActivity extends Activity {
+
+    //导航栏
     private LinearLayout bar;
+
     private ArrayList<TextView> textViews;
+
+    //新闻内容列表
     private ListView listView;
+
+    //加载条
     private ProgressBar progressBar;
+
+    //收藏夹按钮
     private ImageView next;
+
     private TextView tvTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +59,18 @@ public class NavigationActivity extends Activity {
         bar = findViewById(R.id.bar);
         listView = findViewById(R.id.list_view);
         progressBar = findViewById(R.id.pb);
+
         tvTitle = findViewById(R.id.tvTitle);
         // 更改标题栏字体
         tvTitle.setTypeface(Typeface.createFromAsset(getAssets(), "PERTILI.TTF"));
+
         next = findViewById(R.id.next);
+        //监听收藏夹按钮点击事件
         next.setOnClickListener(new View.OnClickListener() {
+            /**
+             * 跳转到收藏夹页面
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -60,8 +78,19 @@ public class NavigationActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        //加载导航栏
         new LoadChanneBar().execute();
+
+        //监听新闻内容点击事件
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            /**
+             * 显示新闻链接的内容
+             * @param adapterView
+             * @param view
+             * @param i
+             * @param l
+             */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 NewsContent newsContent = GetNewsContentList.getItem(i);
@@ -88,6 +117,7 @@ public class NavigationActivity extends Activity {
             super.onPostExecute(newsContents);
             NewsContentAdapter adapter = new NewsContentAdapter(NavigationActivity.this, R.layout.news_content_item, newsContents);
             listView.setAdapter(adapter);
+            //设置加载条状态
             if(progressBar.getVisibility()!=View.GONE){
                 progressBar.setVisibility(View.GONE);
             }

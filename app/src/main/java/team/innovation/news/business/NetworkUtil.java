@@ -44,6 +44,11 @@ public class NetworkUtil {
         return null;
     }
 
+    /**
+     * 获取文本
+     * @param url 链接
+     * @return 文本
+     */
     public static String getText(String url) {
         try {
             Log.e("url", url);

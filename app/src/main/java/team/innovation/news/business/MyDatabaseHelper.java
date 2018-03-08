@@ -22,14 +22,17 @@ import team.innovation.news.entity.NewsContent;
  */
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
+    //数据库文件名
     public static final String FILENAME = "ContentStar1.db";
 
+    //创建表的sql语句
     public static final String CREATE_CONTENT = "create table Content ("
             + "link text primary key,"
             + "title text,"
             + "desc text,"
             + "imageUrl text)";
 
+    //link的缓存
     private static HashSet<String> linkSet = null;
 
     private Context mContext;
@@ -49,6 +52,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * 从数据库中读取数据初始化link缓存
+     */
     public void initLinkSet() {
         ArrayList<NewsContent> list = getNewsContents();
         linkSet = new HashSet<>();
@@ -56,14 +62,22 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             linkSet.add(newsContent.getLink());
         }
     }
+
+    /**
+     * 判断newsContent是否被收藏
+     * @param newsContent
+     * @return true表示被收藏，false表示没有被收藏
+     */
     public boolean isExist(NewsContent newsContent) {
         if (linkSet != null) {
+            //从缓存中获取数据
             if (linkSet.contains(newsContent.getLink())) {
                 return true;
             } else {
                 return false;
             }
         }
+        //从数据库中获取数据
         SQLiteDatabase db = getWritableDatabase();
         if (newsContent == null) Log.e("newsContent","null");
         Cursor cursor = db.query("Content", new String[]{"link"}, "link=?", new String[]{newsContent.getLink()}, null, null, null);
@@ -74,6 +88,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * 从数据库中获取所有被收藏的新闻内容
+     * @return 被收藏的新闻内容列表
+     */
     public ArrayList<NewsContent> getNewsContents() {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.query("Content", null, null, null, null, null, null);
@@ -89,6 +107,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * 向数据库中插入新闻内容
+     * @param newsContent
+     */
     public void insertNewsContent(NewsContent newsContent) {
         if (linkSet != null) {
             linkSet.add(newsContent.getLink());
@@ -102,6 +124,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.insert("Content", null, values);
     }
 
+    /**
+     * 从数据库中删除新闻内容
+     * @param newsContent
+     */
     public void deleteNewsContent(NewsContent newsContent) {
         if (linkSet != null) {
             linkSet.remove(newsContent.getLink());

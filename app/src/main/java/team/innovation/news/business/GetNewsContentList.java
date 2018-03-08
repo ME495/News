@@ -33,6 +33,7 @@ public class GetNewsContentList {
      * @return 新闻内容列表
      */
     public static ArrayList<NewsContent> getList(String channelId){
+        //从网络获取新闻内容
         String text = new ShowApiRequest("http://route.showapi.com/109-35", "58465", "76fd044d1ae74ea0bff5c000500d594d")
                 .addTextPara("channelId",channelId)
                 .addTextPara("channelName","")
@@ -45,6 +46,7 @@ public class GetNewsContentList {
                 .addTextPara("id","")
                 .post();
         list = new ArrayList<>();
+        //解析json
         try {
             Log.e("id",channelId);
             Log.e("json",text);
@@ -67,12 +69,15 @@ public class GetNewsContentList {
                 newsContent.setDesc(object.getString("desc"));
                 newsContent.setLink(object.getString("link"));
                 JSONArray imageurls = object.getJSONArray("imageurls");
+                //如果json中有图片则设置成新闻图片链接，否则设置成noImageUrl
                 if(imageurls.length() > 0) {
                     String url = ((JSONObject)imageurls.get(0)).getString("url");
                     newsContent.setImageUrl(url);
+                    //将图片设置成null，等显示时再加载
                     newsContent.setBitmap(null);
                 } else {
                     newsContent.setImageUrl(noImageUrl);
+                    //直接设置图片
                     newsContent.setBitmap(b);
                 }
                 list.add(newsContent);
