@@ -9,6 +9,7 @@ import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,12 +29,14 @@ public class NavigationActivity extends AppCompatActivity {
     private LinearLayout bar;
     private ArrayList<TextView> textViews;
     private ListView listView;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         bar = findViewById(R.id.bar);
         listView = findViewById(R.id.list_view);
+        progressBar = findViewById(R.id.pb);
         new LoadChanneBar().execute();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -62,6 +65,9 @@ public class NavigationActivity extends AppCompatActivity {
             super.onPostExecute(newsContents);
             NewsContentAdapter adapter = new NewsContentAdapter(NavigationActivity.this, R.layout.news_content_item, newsContents);
             listView.setAdapter(adapter);
+            if(progressBar.getVisibility()!=View.GONE){
+                progressBar.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -90,6 +96,9 @@ public class NavigationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 //                        TextView textView = (TextView) v;
+                        if(progressBar.getVisibility() == View.GONE){
+                            progressBar.setVisibility(View.VISIBLE);
+                        }
                         new LoadNewsContent().execute(v.getTag().toString());
                     }
                 });
