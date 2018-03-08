@@ -2,10 +2,11 @@ package team.innovation.news;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
@@ -35,6 +36,7 @@ public class NavigationActivity extends Activity {
     private ListView listView;
     private ProgressBar progressBar;
     private ImageView next;
+    private TextView tvTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,9 @@ public class NavigationActivity extends Activity {
         bar = findViewById(R.id.bar);
         listView = findViewById(R.id.list_view);
         progressBar = findViewById(R.id.pb);
+        tvTitle = findViewById(R.id.tvTitle);
+        // 更改标题栏字体
+        tvTitle.setTypeface(Typeface.createFromAsset(getAssets(), "PERTILI.TTF"));
         next = findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,10 +112,11 @@ public class NavigationActivity extends Activity {
                 final TextView textView = new TextView(NavigationActivity.this);
                 textView.setText(list.get(i).getName());
                 textView.setTag(list.get(i).getChannelId());
-                textView.setTextSize(30);
+                textView.setHeight(125);
                 textView.setPadding(30,0,30,0);
                 textView.setBackgroundColor(0xFFFFFFFF);
                 textView.setTextSize(23);
+                textView.setGravity(Gravity.CENTER);
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
