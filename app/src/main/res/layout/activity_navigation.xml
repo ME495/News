@@ -21,7 +21,9 @@
         android:id="@+id/pb"
         android:indeterminateTint="#a9c5c9"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyle"
+        />
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
