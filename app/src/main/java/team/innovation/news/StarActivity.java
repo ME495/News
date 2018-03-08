@@ -1,11 +1,14 @@
 package team.innovation.news;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -13,6 +16,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import team.innovation.news.adapter.NewsContentAdapter;
+import team.innovation.news.business.GetNewsContentList;
 import team.innovation.news.business.MyDatabaseHelper;
 import team.innovation.news.entity.NewsContent;
 
@@ -34,7 +38,26 @@ public class StarActivity extends Activity {
 
         listView = findViewById(R.id.star_list);
         btnBack = findViewById(R.id.btnBackInFavourites);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            /**
+             * 显示新闻链接的内容
+             * @param adapterView
+             * @param view
+             * @param i
+             * @param l
+             */
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                NewsContent newsContent = GetNewsContentList.getItem(i);
+                Log.e("link",newsContent.getLink());
+//                WebView webView = new WebView(getApplicationContext());
+//                webView.loadUrl(newsContent.getLink());
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), WebActivity.class);
+                intent.putExtra("link", newsContent.getLink());
+                startActivity(intent);
+            }
+        });
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

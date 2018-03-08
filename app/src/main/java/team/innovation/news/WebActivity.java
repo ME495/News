@@ -12,18 +12,19 @@ public class WebActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_web);
         webView = findViewById(R.id.web);
         Intent intent = getIntent();
         String link = intent.getStringExtra("link");
-        flag = false;
+//        flag = false;
         webView.loadUrl(link);
-        flag = true;
+//        flag = true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (flag) finish();
+//        if (flag) finish();
     }
 }
