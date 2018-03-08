@@ -8,10 +8,10 @@ import android.graphics.Bitmap;
 /**
  * 作者：程坚
  * 时间：2018/3/7
- * 描述：
+ * 描述：实体类，新闻内容
  */
 public class NewsContent {
-    private String title, desc, link;
+    private String title, desc, link, imageUrl;
     private Bitmap bitmap;
 
     public String getTitle() {
@@ -28,6 +28,14 @@ public class NewsContent {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Bitmap getBitmap() {
