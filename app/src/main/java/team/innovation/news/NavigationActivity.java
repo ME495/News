@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,7 +19,7 @@ import team.innovation.news.business.GetNewsContentList;
 import team.innovation.news.entity.Channel;
 import team.innovation.news.entity.NewsContent;
 
-public class NavigationActivity extends AppCompatActivity {
+public class NavigationActivity extends AppCompatActivity{
     private LinearLayout bar;
     private ArrayList<TextView> textViews;
     private ListView listView;
@@ -28,6 +30,14 @@ public class NavigationActivity extends AppCompatActivity {
         bar = findViewById(R.id.bar);
         listView = findViewById(R.id.list_view);
         new LoadChanneBar().execute();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                NewsContent newsContent = GetNewsContentList.getItem(i);
+                WebView webView = new WebView(getApplicationContext());
+                webView.loadUrl(newsContent.getLink());
+            }
+        });
     }
     private class LoadNewsContent extends AsyncTask<String, Void, ArrayList<NewsContent>>{
 

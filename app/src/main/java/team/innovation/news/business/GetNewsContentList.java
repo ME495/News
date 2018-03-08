@@ -22,6 +22,7 @@ import team.innovation.news.entity.NewsContent;
  * 描述：获取新闻内容列表
  */
 public class GetNewsContentList {
+    private static ArrayList<NewsContent> list;
     private GetNewsContentList(){}
 
     public static ArrayList<NewsContent> getList(String channelName){
@@ -43,7 +44,7 @@ public class GetNewsContentList {
             JSONObject body = jsonObject.getJSONObject("showapi_res_body");
             JSONObject pagebean = body.getJSONObject("pagebean");
             JSONArray jsonArray = pagebean.getJSONArray("contentlist");
-            ArrayList<NewsContent> list = new ArrayList<>();
+            list = new ArrayList<>();
             for(int i=0;i<jsonArray.length();++i){
                 JSONObject object = (JSONObject) jsonArray.get(i);
                 NewsContent newsContent = new NewsContent();
@@ -64,5 +65,9 @@ public class GetNewsContentList {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static NewsContent getItem(int pos){
+        return list.get(pos);
     }
 }
