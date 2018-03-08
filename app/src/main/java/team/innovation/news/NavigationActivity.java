@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class NavigationActivity extends Activity {
     private LinearLayout bar;
     private ArrayList<TextView> textViews;
     private ListView listView;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class NavigationActivity extends Activity {
 
         bar = findViewById(R.id.bar);
         listView = findViewById(R.id.list_view);
+        progressBar = findViewById(R.id.pb);
         new LoadChanneBar().execute();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -68,6 +71,9 @@ public class NavigationActivity extends Activity {
             super.onPostExecute(newsContents);
             NewsContentAdapter adapter = new NewsContentAdapter(NavigationActivity.this, R.layout.news_content_item, newsContents);
             listView.setAdapter(adapter);
+            if(progressBar.getVisibility()!=View.GONE){
+                progressBar.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -101,6 +107,9 @@ public class NavigationActivity extends Activity {
                         resetTextViewColor();
                         textView.setBackgroundColor(0xFFF44336);
                         textView.setTextColor(0xFFFFFFFF);
+                        if(progressBar.getVisibility() == View.GONE){
+                            progressBar.setVisibility(View.VISIBLE);
+                        }
                         new LoadNewsContent().execute(v.getTag().toString());
                     }
                 });
