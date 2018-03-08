@@ -69,12 +69,14 @@ public class NewsContentAdapter extends BaseAdapter {
             holder.image = convertView.findViewById(R.id.image);
             holder.star = convertView.findViewById(R.id.star);
             holder.star.setTag(newsContent);
+            //监听器，点击star，改变收藏状态
             holder.star.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new ChangeStar().execute(v);
                 }
             });
+            //设置star的初始状态
             new SetStar().execute(holder.star);
             holder.newsContent = newsContent;
             convertView.setTag(holder);
@@ -83,6 +85,7 @@ public class NewsContentAdapter extends BaseAdapter {
         }
 
         holder.title.setText(newsContent.getTitle());
+        //载入图片
         new LoadImage().execute(holder);
 //        holder.image.setImageBitmap(newsContent.getBitmap());
         convertView.setTag(holder);
@@ -95,6 +98,7 @@ public class NewsContentAdapter extends BaseAdapter {
         NewsContent newsContent;
     }
 
+    //获取并设置star的状态
     private class SetStar extends AsyncTask<View, Void, Boolean> {
         private ImageView imageView;
         private MyDatabaseHelper dbHelper;
@@ -103,6 +107,7 @@ public class NewsContentAdapter extends BaseAdapter {
             Log.e("change","ok");
             imageView = (ImageView) views[0];
             NewsContent newsContent = (NewsContent) imageView.getTag();
+            //从数据库获取star状态，flag为true表示已经被收藏
             dbHelper = new MyDatabaseHelper(context, MyDatabaseHelper.FILENAME, null, 1);
             boolean flag = dbHelper.isExist(newsContent);
             return flag;
@@ -111,6 +116,7 @@ public class NewsContentAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
+            //设置star的状态
             if (aBoolean) {
                 imageView.setImageResource(R.drawable.star2);
             } else {
