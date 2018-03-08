@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import team.innovation.news.entity.NewsContent;
 
 /**
@@ -52,6 +54,21 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         } else {
             return true;
         }
+    }
+
+    public ArrayList<NewsContent> getNewsContents() {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.query("Content", null, null, null, null, null, null);
+        ArrayList<NewsContent> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            NewsContent newsContent = new NewsContent();
+            newsContent.setLink(cursor.getString(0));
+            newsContent.setTitle(cursor.getString(1));
+            newsContent.setDesc(cursor.getString(2));
+            newsContent.setImageUrl(cursor.getString(3));
+            list.add(newsContent);
+        }
+        return list;
     }
 
     public void insertNewsContent(NewsContent newsContent) {

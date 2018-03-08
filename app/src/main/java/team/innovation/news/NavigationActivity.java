@@ -1,6 +1,7 @@
 package team.innovation.news;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -32,6 +34,7 @@ public class NavigationActivity extends Activity {
     private ArrayList<TextView> textViews;
     private ListView listView;
     private ProgressBar progressBar;
+    private ImageView next;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,15 @@ public class NavigationActivity extends Activity {
         bar = findViewById(R.id.bar);
         listView = findViewById(R.id.list_view);
         progressBar = findViewById(R.id.pb);
+        next = findViewById(R.id.next);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), StarActivity.class);
+                startActivity(intent);
+            }
+        });
         new LoadChanneBar().execute();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
