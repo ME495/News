@@ -124,6 +124,8 @@ public class NewsContentAdapter extends BaseAdapter {
             }
         }
     }
+
+    //获取并改变star的状态
     private class ChangeStar extends AsyncTask<View, Void, Boolean> {
 
         private ImageView imageView;
@@ -133,6 +135,7 @@ public class NewsContentAdapter extends BaseAdapter {
             Log.e("change","ok");
             imageView = (ImageView) views[0];
             NewsContent newsContent = (NewsContent) imageView.getTag();
+            //从数据库获取star状态，flag为true表示已经被收藏
             dbHelper = new MyDatabaseHelper(context, MyDatabaseHelper.FILENAME, null, 1);
             boolean flag = dbHelper.isExist(newsContent);
             if (flag) {
@@ -148,6 +151,7 @@ public class NewsContentAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
+            //改变star状态
             if (aBoolean) {
                 imageView.setImageResource(R.drawable.star1);
             } else {
@@ -156,6 +160,7 @@ public class NewsContentAdapter extends BaseAdapter {
         }
     }
 
+    //载入图片
     private class LoadImage extends AsyncTask<ViewHolder, Void, ViewHolder> {
         @Override
         protected ViewHolder doInBackground(ViewHolder... viewHolders) {
