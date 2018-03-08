@@ -44,6 +44,7 @@ public class GetNewsContentList {
                 .post();
         list = new ArrayList<>();
         try {
+            Log.e("id",channelId);
             Log.e("json",text);
             String noImageUrl = "https://github.com/ME495/pictures/raw/master/%E6%9A%82%E6%97%A0%E5%9B%BE%E7%89%87.jpg";
             Bitmap b = NetworkUtil.getBitmap(noImageUrl);
