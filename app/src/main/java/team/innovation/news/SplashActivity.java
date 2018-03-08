@@ -12,7 +12,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        new MyDatabaseHelper(this, MyDatabaseHelper.FILENAME, null, 1).getWritableDatabase();
+        MyDatabaseHelper dbHelper = new MyDatabaseHelper(this, MyDatabaseHelper.FILENAME, null, 1);
+        dbHelper.initLinkSet();
         new Thread(new Runnable() {
             @Override
             public void run() {

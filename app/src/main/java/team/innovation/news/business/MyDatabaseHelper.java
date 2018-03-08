@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import team.innovation.news.entity.NewsContent;
 
@@ -22,11 +23,14 @@ import team.innovation.news.entity.NewsContent;
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String FILENAME = "ContentStar1.db";
+
     public static final String CREATE_CONTENT = "create table Content ("
             + "link text primary key,"
             + "title text,"
             + "desc text,"
             + "imageUrl text)";
+
+    private static HashSet<String> linkSet = null;
 
     private Context mContext;
 
@@ -45,7 +49,21 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void initLinkSet() {
+        ArrayList<NewsContent> list = getNewsContents();
+        linkSet = new HashSet<>();
+        for (NewsContent newsContent : list) {
+            linkSet.add(newsContent.getLink());
+        }
+    }
     public boolean isExist(NewsContent newsContent) {
+        if (linkSet != null) {
+            if (linkSet.contains(newsContent.getLink())) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         SQLiteDatabase db = getWritableDatabase();
         if (newsContent == null) Log.e("newsContent","null");
         Cursor cursor = db.query("Content", new String[]{"link"}, "link=?", new String[]{newsContent.getLink()}, null, null, null);
@@ -72,6 +90,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void insertNewsContent(NewsContent newsContent) {
+        if (linkSet != null) {
+            linkSet.add(newsContent.getLink());
+        }
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("title", newsContent.getTitle());
@@ -82,6 +103,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteNewsContent(NewsContent newsContent) {
+        if (linkSet != null) {
+            linkSet.remove(newsContent.getLink());
+        }
         SQLiteDatabase db = getWritableDatabase();
         db.delete("Content", "link=?", new String[]{newsContent.getLink()});
     }
