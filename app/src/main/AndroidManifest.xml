@@ -10,9 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".NavigationActivity">
-
+        android:theme="@android:style/Theme.Light"
+        android:gravity="center">
+        <activity
+            android:name=".NavigationActivity"
+            android:theme="@style/TitleBarStyle">
         </activity>
 
         <activity
