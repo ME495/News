@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +35,14 @@ public class NavigationActivity extends AppCompatActivity {
         bar = findViewById(R.id.bar);
         listView = findViewById(R.id.list_view);
         new LoadChanneBar().execute();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                NewsContent newsContent = GetNewsContentList.getItem(i);
+                WebView webView = new WebView(getApplicationContext());
+                webView.loadUrl(newsContent.getLink());
+            }
+        });
     }
 
     /**
@@ -43,7 +53,7 @@ public class NavigationActivity extends AppCompatActivity {
         @Override
         protected ArrayList<NewsContent> doInBackground(String... strings) {
             ArrayList<NewsContent> list = GetNewsContentList.getList(strings[0]);
-//            if(list == null) Log.e("list","null");
+            if(list == null) Log.e("list","null");
             return list;
         }
 
@@ -66,20 +76,21 @@ public class NavigationActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Channel> list) {
+        protected void onPostExecute(final ArrayList<Channel> list) {
             super.onPostExecute(list);
             textViews = new ArrayList<>();
             for(int i=0;i<list.size();++i){
                 TextView textView = new TextView(NavigationActivity.this);
                 textView.setText(list.get(i).getName());
+                textView.setTag(list.get(i).getChannelId());
                 textView.setTextSize(30);
                 textView.setPadding(30,0,30,0);
                 textView.setBackgroundColor(0xffff0000);
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TextView textView = (TextView) v;
-                        new LoadNewsContent().execute(textView.getText().toString());
+//                        TextView textView = (TextView) v;
+                        new LoadNewsContent().execute(v.getTag().toString());
                     }
                 });
                 textViews.add(textView);
