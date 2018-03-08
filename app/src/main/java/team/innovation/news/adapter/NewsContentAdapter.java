@@ -5,12 +5,14 @@ package team.innovation.news.adapter;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -18,7 +20,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import team.innovation.news.NavigationActivity;
 import team.innovation.news.R;
+import team.innovation.news.business.MyDatabaseHelper;
 import team.innovation.news.business.NetworkUtil;
 import team.innovation.news.entity.NewsContent;
 
@@ -56,18 +60,28 @@ public class NewsContentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
+        final NewsContent newsContent = data.get(position);
         if(convertView == null){
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(itemLayout, parent, false);
             holder = new ViewHolder();
             holder.title = convertView.findViewById(R.id.title);
             holder.image = convertView.findViewById(R.id.image);
-            holder.newsContent = data.get(position);
+            holder.star = convertView.findViewById(R.id.star);
+            holder.star.setTag(newsContent);
+            holder.star.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new ChangeStar().execute(v);
+                }
+            });
+            new SetStar().execute(holder.star);
+            holder.newsContent = newsContent;
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        NewsContent newsContent = data.get(position);
+
         holder.title.setText(newsContent.getTitle());
         new LoadImage().execute(holder);
 //        holder.image.setImageBitmap(newsContent.getBitmap());
@@ -77,8 +91,63 @@ public class NewsContentAdapter extends BaseAdapter {
 
     private class ViewHolder {
         TextView title;
-        ImageView image;
+        ImageView image,star;
         NewsContent newsContent;
+    }
+
+    private class SetStar extends AsyncTask<View, Void, Boolean> {
+        private ImageView imageView;
+        private MyDatabaseHelper dbHelper;
+        @Override
+        protected Boolean doInBackground(View... views) {
+            Log.e("change","ok");
+            imageView = (ImageView) views[0];
+            NewsContent newsContent = (NewsContent) imageView.getTag();
+            dbHelper = new MyDatabaseHelper(context, MyDatabaseHelper.FILENAME, null, 1);
+            boolean flag = dbHelper.isExist(newsContent);
+            return flag;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if (aBoolean) {
+                imageView.setImageResource(R.drawable.star2);
+            } else {
+                imageView.setImageResource(R.drawable.star1);
+            }
+        }
+    }
+    private class ChangeStar extends AsyncTask<View, Void, Boolean> {
+
+        private ImageView imageView;
+        private MyDatabaseHelper dbHelper;
+        @Override
+        protected Boolean doInBackground(View... views) {
+            Log.e("change","ok");
+            imageView = (ImageView) views[0];
+            NewsContent newsContent = (NewsContent) imageView.getTag();
+            dbHelper = new MyDatabaseHelper(context, MyDatabaseHelper.FILENAME, null, 1);
+            boolean flag = dbHelper.isExist(newsContent);
+            if (flag) {
+                dbHelper.deleteNewsContent(newsContent);
+//                imageView.setImageResource(R.drawable.star1);
+            } else {
+                dbHelper.insertNewsContent(newsContent);
+//                imageView.setImageResource(R.drawable.star2);
+            }
+            return flag;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if (aBoolean) {
+                imageView.setImageResource(R.drawable.star1);
+            } else {
+                imageView.setImageResource(R.drawable.star2);
+            }
+        }
     }
 
     private class LoadImage extends AsyncTask<ViewHolder, Void, ViewHolder> {
