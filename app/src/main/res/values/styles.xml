@@ -34,5 +34,10 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+    
+    <style name="TitleBarStyle" parent="@android:style/Theme.Light">
+        <item name="android:windowTitleSize">48dip</item>
+        <item name="android:windowTitleBackgroundStyle">@null</item>
+    </style>
 
 </resources>
