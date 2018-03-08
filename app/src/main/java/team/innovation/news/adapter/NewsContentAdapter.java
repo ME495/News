@@ -4,6 +4,7 @@ package team.innovation.news.adapter;
  */
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,13 +62,15 @@ public class NewsContentAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.title = convertView.findViewById(R.id.title);
             holder.image = convertView.findViewById(R.id.image);
+            holder.newsContent = data.get(position);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         NewsContent newsContent = data.get(position);
         holder.title.setText(newsContent.getTitle());
-        holder.image.setImageBitmap(newsContent.getBitmap());
+        new LoadImage().execute(holder);
+//        holder.image.setImageBitmap(newsContent.getBitmap());
         convertView.setTag(holder);
         return convertView;
     }
@@ -75,5 +78,23 @@ public class NewsContentAdapter extends BaseAdapter {
     private class ViewHolder {
         TextView title;
         ImageView image;
+        NewsContent newsContent;
+    }
+
+    private class LoadImage extends AsyncTask<ViewHolder, Void, ViewHolder> {
+        @Override
+        protected ViewHolder doInBackground(ViewHolder... viewHolders) {
+            ViewHolder holder = viewHolders[0];
+            if (holder.newsContent.getBitmap() == null) {
+                holder.newsContent.setBitmap(NetworkUtil.getBitmap(holder.newsContent.getImageUrl()));
+            }
+            return holder;
+        }
+
+        @Override
+        protected void onPostExecute(ViewHolder viewHolder) {
+            super.onPostExecute(viewHolder);
+            viewHolder.image.setImageBitmap(viewHolder.newsContent.getBitmap());
+        }
     }
 }

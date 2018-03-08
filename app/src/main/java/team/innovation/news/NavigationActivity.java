@@ -53,7 +53,7 @@ public class NavigationActivity extends AppCompatActivity {
         @Override
         protected ArrayList<NewsContent> doInBackground(String... strings) {
             ArrayList<NewsContent> list = GetNewsContentList.getList(strings[0]);
-//            if(list == null) Log.e("list","null");
+            if(list == null) Log.e("list","null");
             return list;
         }
 
@@ -82,14 +82,15 @@ public class NavigationActivity extends AppCompatActivity {
             for(int i=0;i<list.size();++i){
                 TextView textView = new TextView(NavigationActivity.this);
                 textView.setText(list.get(i).getName());
+                textView.setTag(list.get(i).getChannelId());
                 textView.setTextSize(30);
                 textView.setPadding(30,0,30,0);
                 textView.setBackgroundColor(0xffff0000);
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TextView textView = (TextView) v;
-                        new LoadNewsContent().execute(textView.getText().toString());
+//                        TextView textView = (TextView) v;
+                        new LoadNewsContent().execute(v.getTag().toString());
                     }
                 });
                 textViews.add(textView);
