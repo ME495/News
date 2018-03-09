@@ -122,6 +122,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         values.put("imageUrl", newsContent.getImageUrl());
         values.put("link", newsContent.getLink());
         db.insert("Content", null, values);
+        Log.e("insert", values.getAsString("title") + " " + values.getAsString("link"));
     }
 
     /**
@@ -134,5 +135,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
         SQLiteDatabase db = getWritableDatabase();
         db.delete("Content", "link=?", new String[]{newsContent.getLink()});
+        Log.e("delete", newsContent.getTitle() + " " + newsContent.getLink());
     }
 }
