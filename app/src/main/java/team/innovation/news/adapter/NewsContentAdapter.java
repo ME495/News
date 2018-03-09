@@ -68,7 +68,6 @@ public class NewsContentAdapter extends BaseAdapter {
             holder.title = convertView.findViewById(R.id.title);
             holder.image = convertView.findViewById(R.id.image);
             holder.star = convertView.findViewById(R.id.star);
-            holder.star.setTag(newsContent);
             //监听器，点击star，改变收藏状态
             holder.star.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,15 +75,15 @@ public class NewsContentAdapter extends BaseAdapter {
                     new ChangeStar().execute(v);
                 }
             });
-            //设置star的初始状态
-            new SetStar().execute(holder.star);
-            holder.newsContent = newsContent;
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        holder.newsContent = newsContent;
         holder.title.setText(newsContent.getTitle());
+        holder.star.setTag(newsContent);
+        //设置star的初始状态
+        new SetStar().execute(holder.star);
         //载入图片
         new LoadImage().execute(holder);
 //        holder.image.setImageBitmap(newsContent.getBitmap());
