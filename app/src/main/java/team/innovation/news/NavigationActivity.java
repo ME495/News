@@ -95,7 +95,7 @@ public class NavigationActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 NewsContent newsContent = GetNewsContentList.getItem(i);
                 Log.e("link",newsContent.getLink());
-                WebView webView = new WebView(getApplicationContext());
+                WebView webView = new WebView(adapterView.getContext());
                 webView.loadUrl(newsContent.getLink());
 //                Intent intent = new Intent();
 //                intent.setClass(getApplicationContext(), WebActivity.class);
