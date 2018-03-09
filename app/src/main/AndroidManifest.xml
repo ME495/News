@@ -15,6 +15,7 @@
         <activity
             android:name=".NavigationActivity"
             android:theme="@style/TitleBarStyle" />
+
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.Splash">
@@ -24,10 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".StarActivity"
             android:theme="@style/TitleBarStyle" />
-        <activity android:name=".WebActivity"></activity>
+
+        <activity
+            android:name=".WebActivity"
+            android:theme="@style/TitleBarStyle"></activity>
     </application>
 
 </manifest>
